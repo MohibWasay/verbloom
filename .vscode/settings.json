@@ -1,0 +1,59 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [100, 120],
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "frontend/dist": true
+  },
+  "search.exclude": {
+    "frontend/wailsjs": true,
+    "frontend/coverage": true,
+    "build/bin": true
+  },
+
+  "[go]": {
+    "editor.defaultFormatter": "golang.go",
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "go.buildTags": "webkit2_41",
+  "go.lintTool": "golangci-lint-v2",
+  "go.lintOnSave": "package",
+  "go.testFlags": ["-race", "-count=1"],
+  "go.testTags": "webkit2_41",
+  "go.coverOnSave": false,
+  "gopls": {
+    "build.buildFlags": ["-tags=webkit2_41"],
+    "build.directoryFilters": ["-frontend/node_modules", "-build"],
+    "formatting.gofumpt": true,
+    "formatting.local": "verbloom",
+    "ui.semanticTokens": true,
+    "ui.diagnostic.staticcheck": false,
+    "ui.diagnostic.analyses": {
+      "unusedparams": true,
+      "unusedvariable": true,
+      "shadow": true
+    }
+  },
+
+  "typescript.tsdk": "frontend/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "[typescript][typescriptreact][javascript][json][jsonc][css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "eslint.workingDirectories": [{ "directory": "frontend", "changeProcessCWD": true }],
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "prettier.requireConfig": true,
+  "prettier.prettierPath": "frontend/node_modules/prettier",
+  "vitest.rootConfig": "frontend/vite.config.ts"
+}

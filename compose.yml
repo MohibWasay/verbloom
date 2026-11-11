@@ -1,0 +1,50 @@
+name: verbloom
+
+# All services share one toolchain image and bind-mount the repository, so
+# results (coverage, generated bindings, build/bin) land in the working tree.
+# Run through the Makefile (`make docker-check`, ...) so DOCKER_UID/GID match
+# your user and files are not created as root.
+x-toolchain: &toolchain
+  image: verbloom-toolchain:local
+  build:
+    context: .
+    target: deps
+    args:
+      UID: ${DOCKER_UID:-1000}
+      GID: ${DOCKER_GID:-1000}
+  working_dir: /src
+  volumes:
+    - .:/src
+    - node_modules:/src/frontend/node_modules
+    - go-mod:/go/pkg/mod
+    - go-build:/home/dev/.cache/go-build
+
+services:
+  check:
+    <<: *toolchain
+    command: make check
+
+  lint:
+    <<: *toolchain
+    command: make lint
+
+  test:
+    <<: *toolchain
+    command: make test
+
+  coverage:
+    <<: *toolchain
+    command: make coverage
+
+  bindings:
+    <<: *toolchain
+    command: make bindings
+
+  build:
+    <<: *toolchain
+    command: make build
+
+volumes:
+  node_modules:
+  go-mod:
+  go-build:
